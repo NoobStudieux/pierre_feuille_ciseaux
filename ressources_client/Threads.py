@@ -42,6 +42,22 @@ class ThreadReception(threading.Thread):
                 self.bouton_ciseaux.pack(side=LEFT)
                 self.bouton_valider_choix.pack(side=BOTTOM)
                 Label(self.fenetre.jeu, text ="vous jouez contre " + str(adversaire)).pack(side=BOTTOM)   
+            elif message.split(", ")[1] == "vainqueur":
+                for widget in self.fenetre.jeu.winfo_children():
+                    widget.destroy()
+                if message.split(", ")[2] == self.fenetre.pseudo:
+                    texte = "vous avez gagné"
+                elif message.split(", ")[2] == adversaire : # ne vient pas ici mais en dessous ?!
+                    texte = "vous avez perdu"
+                else:
+                    texte = "le gagnant est " + message.split(", ")[2]
+                Label(self.fenetre.jeu, text=texte).pack()
+                Button(self.fenetre.jeu, text="rejouer", command=self.rejouer).pack()
+    def rejouer(self):
+        message = self.fenetre.pseudo + ", rejouer"
+        self.connexion.send(message.encode('Utf8'))
+        for widget in self.fenetre.jeu.winfo_children():
+            widget.destroy()
     def clickPseudo(self, partenaire):
         print(partenaire)
         message = self.fenetre.pseudo + ", demandePartie, " + partenaire

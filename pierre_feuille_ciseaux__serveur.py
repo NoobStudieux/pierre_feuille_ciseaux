@@ -45,7 +45,13 @@ class ThreadClient(threading.Thread):
                 if messClient.split(', ')[2] == "choix":
                     partie_courante = self.getPartieFromPseudo(messClient.split(', ')[0])
                     partie_courante.setChoix(messClient.split(', ')[0], messClient.split(', ')[3])
-                    print(partie_courante.are2ChoixOK())
+                    if partie_courante.are2ChoixOK(): # les 2 joueurs ont fait leur choix
+                        partie_courante.concourir()
+                        message = "serveur, vainqueur, " + partie_courante.gagnant
+                        self.envoiMessageAUnPseudo(partie_courante.j1.pseudo , message)
+                        self.envoiMessageAUnPseudo(partie_courante.j2.pseudo , message)
+            elif messClient.split(', ')[1] == "rejouer":
+                self.setDispo(messClient.split(', ')[0])
         print("deconnexion de " , self.getName(), " (", conn_client[self.getName()]['joueur'].pseudo , ")")
         del conn_client[self.getName()]
     def getJoueurFromPseudo(self, pseudo):

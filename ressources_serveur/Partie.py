@@ -8,17 +8,18 @@ class Partie:
         self.choixJ2 = None
         self.gagnant = None
         self.enCours = True
-    def concourir(self2):
-        if self.choixJ2 == self.choixJ2:
+    def concourir(self):
+        if self.choixJ2 == self.choixJ1:
             print("egalite")
         elif self.choixJ1 == "pierre" and self.choixJ2 == "feuille":
-	        self.setGagnant(j1.pseudo)
+	        self.setGagnant(self.j1.pseudo)
         elif self.choixJ1 == "feuille" and self.choixJ2 == "pierre":
-	        self.setGagnant(j1.pseudo)
+	        self.setGagnant(self.j1.pseudo)
         elif self.choixJ1 == "ciseaux" and self.choixJ2 == "feuille":
-	        self.setGagnant(j1.pseudo)
+	        self.setGagnant(self.j1.pseudo)
         else:
-	        self.setGagnant(j2.pseudo)
+	        self.setGagnant(self.j2.pseudo)
+        return self.gagnant
     def setEgalite(self):
 	    self.gagnant = "egalite"
     def setGagnant(self, pseudo_gagnant):
